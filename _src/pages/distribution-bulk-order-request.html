@@ -9,6 +9,7 @@ path: /distribution-bulk-order-request/
     <p class="center mid">Ordering copies for an event, classroom, retail shelf, or gift? We'd love to help.</p>
     <div class="calc" id="bulk-calc">
       <h2>See what you'll save</h2>
+      <p class="calc-cad">All prices are in Canadian dollars (CAD).</p>
       <div class="calc-in">
         <label>Book
           <select id="c-book"></select>
@@ -21,7 +22,7 @@ path: /distribution-bulk-order-request/
         </label>
       </div>
       <div class="calc-out" id="c-out" aria-live="polite"></div>
-      <p class="calc-note">Prices in Canadian dollars, based on Amazon.ca retail prices, before tax. This is an estimate. We'll confirm your final quote by email.</p>
+      <p class="calc-note">All prices are in Canadian dollars (CAD), based on Amazon.ca retail prices rounded to the nearest dollar, before tax. This is an estimate. We'll confirm your final quote by email.</p>
     </div>
     <h2 class="center" style="font-size:var(--f-h4);margin-top:50px">Request your order</h2>
     <div class="formbox zform" data-src="https://forms.entrechatpress.com/entrechatpress/form/BulkOrderRequest/formperma/GSF52KqUCMpVfJBlDOEqni1SvYaLhK-MoU5ZTMtpxOA?zf_rszfm=1" data-h="1333" data-title="Bulk order request"></div>
@@ -29,23 +30,24 @@ path: /distribution-bulk-order-request/
 </section>
 <script>
 (function () {
-  // Retail prices (CAD) from Amazon.ca, checked 8 Nov 2026. Update here when prices change.
+  // Retail prices in CAD from Amazon.ca, checked 8 Nov 2026, rounded to the nearest dollar. Update here when prices change.
   var BOOKS = [
-    { title: "write it.", author: "Adina Samuels", page: "/write-it-adina-samuels/", buy: "https://www.amazon.ca/write-Thinking-Actually-Finishing-Nonfiction-ebook/dp/B0GMY2NXSD", prices: { Paperback: 13.67 } },
-    { title: "Thank God I Failed", author: "Orlando Da Silva", page: "/thank-god-i-failed-orlando-dasilva/", buy: "https://www.amazon.ca/Thank-God-Failed-Lawyers-Suicide/dp/1067369953/", prices: { Paperback: 29.99, Hardcover: 42.03 } },
-    { title: "White Men, I Need You!", author: "Sema Burney", page: "/white-men-i-need-you-sema-burney/", buy: "https://www.amazon.ca/White-Men-Need-You-no-nonsense/dp/1067369929/", prices: { Paperback: 24.99 } },
-    { title: "The $50M Consulting Firm", author: "Mark Orttung & Doug Taylor", page: "/the-50m-consulting-firm-mark-orttung-doug-taylor/", buy: "https://www.amazon.ca/50M-Consulting-Firm-Playbook-Scaling/dp/1067369961/", prices: { Paperback: 22.30 } },
-    { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", prices: { Paperback: 29.99, Hardcover: 49.03 } }
+    { title: "write it.", author: "Adina Samuels", page: "/write-it-adina-samuels/", buy: "https://www.amazon.ca/write-Thinking-Actually-Finishing-Nonfiction-ebook/dp/B0GMY2NXSD", prices: { Paperback: 14 } },
+    { title: "Thank God I Failed", author: "Orlando Da Silva", page: "/thank-god-i-failed-orlando-dasilva/", buy: "https://www.amazon.ca/Thank-God-Failed-Lawyers-Suicide/dp/1067369953/", prices: { Paperback: 30, Hardcover: 42 } },
+    { title: "White Men, I Need You!", author: "Sema Burney", page: "/white-men-i-need-you-sema-burney/", buy: "https://www.amazon.ca/White-Men-Need-You-no-nonsense/dp/1067369929/", prices: { Paperback: 25 } },
+    { title: "The $50M Consulting Firm", author: "Mark Orttung & Doug Taylor", page: "/the-50m-consulting-firm-mark-orttung-doug-taylor/", buy: "https://www.amazon.ca/50M-Consulting-Firm-Playbook-Scaling/dp/1067369961/", prices: { Paperback: 22 } },
+    { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", prices: { Paperback: 30, Hardcover: 49 } }
   ];
   var TIERS = [ { min: 250, off: 25 }, { min: 100, off: 20 }, { min: 50, off: 15 }, { min: 15, off: 10 } ];
   var SHIPPING = 15;
   var $ = function (id) { return document.getElementById(id); };
-  var money = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  var money = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CAD'; };
+  var each = function (n) { return '$' + n + ' CAD'; };
   var book = $('c-book'), fmt = $('c-format'), qty = $('c-qty'), out = $('c-out');
   BOOKS.forEach(function (b, i) { var o = document.createElement('option'); o.value = i; o.textContent = '“' + b.title + '” by ' + b.author; book.appendChild(o); });
   function fillFormats() {
     var b = BOOKS[book.value]; fmt.innerHTML = '';
-    Object.keys(b.prices).forEach(function (f) { var o = document.createElement('option'); o.value = f; o.textContent = f + ' (' + money(b.prices[f]) + ' each)'; fmt.appendChild(o); });
+    Object.keys(b.prices).forEach(function (f) { var o = document.createElement('option'); o.value = f; o.textContent = f + ', ' + each(b.prices[f]); fmt.appendChild(o); });
   }
   function tierFor(n) { for (var i = 0; i < TIERS.length; i++) if (n >= TIERS[i].min) return TIERS[i]; return null; }
   function update() {

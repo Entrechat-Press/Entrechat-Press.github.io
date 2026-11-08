@@ -231,7 +231,9 @@ strong { font-weight: 500; }
 .blurb-list { padding-left: 1.1em; }
 .pull { display: grid; grid-template-columns: 1fr 1fr; background: var(--beige); }
 .pull .q { display: flex; align-items: center; padding: clamp(32px, 6vw, 70px); }
-.pull .q p { font-size: var(--f-h3); line-height: 1.12; letter-spacing: -0.02em; margin: 0; }
+.pull .q blockquote { margin: 0; }
+.pull .q p { font-size: var(--f-h3); line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 .8em; }
+.pull .q footer { font-size: var(--f-small); }
 .pull .img img { width: 100%; height: 100%; object-fit: cover; }
 .books { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px clamp(24px, 4vw, 52px); }
 .book img { aspect-ratio: 4 / 5; object-fit: contain; width: 100%; margin-bottom: 14px; }

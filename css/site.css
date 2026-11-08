@@ -239,7 +239,8 @@ strong { font-weight: 500; }
 .book img { aspect-ratio: 4 / 5; object-fit: contain; width: 100%; margin-bottom: 14px; }
 .book .t { font-size: var(--f-body); margin: 0; }
 .book .a { font-size: var(--f-small); margin: .2em 0 .9em; }
-.book .btn { width: 100%; min-width: 0; }
+.book { display: flex; flex-direction: column; }
+.book .btn { width: 100%; min-width: 0; margin-top: auto; }
 .titles-head { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
 
 /* single book page */

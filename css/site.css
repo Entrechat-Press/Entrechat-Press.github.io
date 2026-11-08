@@ -365,3 +365,11 @@ a.btn[href="/contact/"]:hover { transform: translateY(-2px); box-shadow: 0 6px 1
 /* reader reviews gallery */
 .reviews { columns: 3 300px; column-gap: 22px; margin: clamp(30px, 4vw, 50px) 0 30px; }
 .reviews img { width: 100%; break-inside: avoid; margin: 0 0 22px; background: #fff; padding: 14px; box-shadow: 1px 2px 4px rgba(0,0,0,.12); }
+
+/* standalone form pages */
+.form-page .wrap { max-width: 820px; }
+.form-page h1 { font-size: var(--f-h2); margin-bottom: .4em; }
+.form-page .formbox { margin-top: 30px; }
+.booking { margin-top: 30px; min-height: 600px; }
+.link-list { display: grid; gap: 14px; max-width: 460px; margin: 30px auto 0; }
+.link-list .btn { width: 100%; }

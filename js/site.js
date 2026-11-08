@@ -36,7 +36,7 @@
   });
   // Zoho posts "permalink|height" when the form changes size
   window.addEventListener('message', function (e) {
-    if (typeof e.data !== 'string' || !/zohopublic|zoho/.test(e.origin)) return;
+    if (typeof e.data !== 'string' || !/zohopublic|zoho|forms\.entrechatpress\.com/.test(e.origin)) return;
     var parts = e.data.split('|');
     if (parts.length < 2) return;
     var h = parseInt(parts[1], 10);

@@ -1,0 +1,18 @@
+<!--
+title: Book a Discovery Call | Entrechat Press
+description: Book a free discovery call with Entrechat Press to talk about writing, publishing and marketing your nonfiction book.
+path: /discovery-call/
+-->
+<section class="sec t-beige form-page">
+  <div class="wrap">
+    <h1 class="center">Book Your Discovery Call</h1>
+    <p class="center mid">Complete the form with all the details, and within 24 hours, you’ll receive a confirmation email for our discovery call.</p>
+    <div id="inline-container" class="booking"></div>
+  </div>
+</section>
+<script src="https://bookings.nimbuspop.com/assets/embed.js"></script>
+<script>
+window.addEventListener('load', function () {
+  if (window.Bookings) Bookings.inlineEmbed({ url: "https://bookings.entrechatpress.com/portal-embed#/discovery-call?hide_event_details=true", parent: "#inline-container", height: "2500px" });
+});
+</script>

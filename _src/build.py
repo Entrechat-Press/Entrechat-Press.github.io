@@ -169,7 +169,7 @@ def build_page(path, articles):
     layout = read(os.path.join(SRC, 'layout.html'))
     canonical = SITE_URL + url
     head_extra = schema_for(meta, body, canonical) if url != '/404/' else ''
-    if meta.get('draft') == 'yes' or url == '/404/':
+    if meta.get('draft') == 'yes' or meta.get('noindex') == 'yes' or url == '/404/':
         head_extra += '\n<meta name="robots" content="noindex">'
     out = (layout.replace('{{title}}', html.escape(meta['title']))
                  .replace('{{description}}', html.escape(meta.get('description', '')))
@@ -195,7 +195,7 @@ def main():
     today = date.today().isoformat()
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f'  <url><loc>{c}</loc><lastmod>{today}</lastmod></url>' for u, c, m in built
-           if u != '/404/' and m.get('draft') != 'yes']
+           if u != '/404/' and m.get('draft') != 'yes' and m.get('noindex') != 'yes']
     sm.append('</urlset>')
     with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
         f.write('\n'.join(sm) + '\n')

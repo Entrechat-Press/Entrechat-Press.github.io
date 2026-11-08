@@ -83,7 +83,7 @@ def build_page(path):
         f'<a href="{href}"{" aria-current=\"page\"" if meta.get("nav") == key else ""}>{label}</a>'
         for key, href, label in NAV)
     layout = read(os.path.join(SRC, 'layout.html'))
-    canonical = SITE_URL + ('/' if url == '/' else url.rstrip('/'))
+    canonical = SITE_URL + url
     out = (layout.replace('{{title}}', html.escape(meta['title']))
                  .replace('{{description}}', html.escape(meta.get('description', '')))
                  .replace('{{canonical}}', canonical)

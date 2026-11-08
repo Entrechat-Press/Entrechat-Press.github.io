@@ -61,21 +61,22 @@
 </section>
 <script>
 (function () {
-  // Retail prices in CAD from Amazon.ca, checked 8 Nov 2026, rounded to the nearest dollar. Update here when prices change.
+  // Retail prices in CAD from Amazon.ca, checked 8 Nov 2026, rounded to the nearest dollar. Thinking On Your Feet uses the Books Register price until it's on Amazon. Update here when prices change.
   var BOOKS = [
     { title: "write it.", author: "Adina Samuels", page: "/write-it-adina-samuels/", buy: "https://www.amazon.ca/write-Thinking-Actually-Finishing-Nonfiction-ebook/dp/B0GMY2NXSD", prices: { Paperback: 14 } },
     { title: "Thank God I Failed", author: "Orlando Da Silva", page: "/thank-god-i-failed-orlando-dasilva/", buy: "https://www.amazon.ca/Thank-God-Failed-Lawyers-Suicide/dp/1067369953/", prices: { Paperback: 30, Hardcover: 42 } },
     { title: "White Men, I Need You!", author: "Sema Burney", page: "/white-men-i-need-you-sema-burney/", buy: "https://www.amazon.ca/White-Men-Need-You-no-nonsense/dp/1067369929/", prices: { Paperback: 25 } },
     { title: "The $50M Consulting Firm", author: "Mark Orttung & Doug Taylor", page: "/the-50m-consulting-firm-mark-orttung-doug-taylor/", buy: "https://www.amazon.ca/50M-Consulting-Firm-Playbook-Scaling/dp/1067369961/", prices: { Paperback: 22 } },
     { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", prices: { Paperback: 30, Hardcover: 49 } },
-    { title: "If I Can, You Can", author: "Damindra Dias", page: "/if-i-can-you-can-damindra-dias/", buy: "https://www.amazon.ca/Can-You-Immigrants-Corporate-Leadership/dp/1067850821/", prices: { Paperback: 25, Hardcover: 42 } }
+    { title: "If I Can, You Can", author: "Damindra Dias", page: "/if-i-can-you-can-damindra-dias/", buy: "https://www.amazon.ca/Can-You-Immigrants-Corporate-Leadership/dp/1067850821/", prices: { Paperback: 25, Hardcover: 42 } },
+    { title: "Thinking On Your Feet", author: "Chris Graham", page: "/thinking-on-your-feet-chris-graham/", buy: null, soon: true, prices: { Paperback: 24 } }
   ];
   var TIERS = [ { min: 250, off: 25 }, { min: 100, off: 20 }, { min: 50, off: 15 }, { min: 15, off: 10 } ];
   var $ = function (id) { return document.getElementById(id); };
   var money = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CAD'; };
   var each = function (n) { return '$' + n + ' CAD'; };
   var book = $('c-book'), fmt = $('c-format'), qty = $('c-qty'), out = $('c-out');
-  BOOKS.forEach(function (b, i) { var o = document.createElement('option'); o.value = i; o.textContent = '“' + b.title + '” by ' + b.author; book.appendChild(o); });
+  BOOKS.forEach(function (b, i) { var o = document.createElement('option'); o.value = i; o.textContent = '“' + b.title + '” by ' + b.author + (b.soon ? ' (coming soon)' : ''); book.appendChild(o); });
   function fillFormats() {
     var b = BOOKS[book.value]; fmt.innerHTML = '';
     Object.keys(b.prices).forEach(function (f) { var o = document.createElement('option'); o.value = f; o.textContent = f + ', ' + each(b.prices[f]); fmt.appendChild(o); });
@@ -84,7 +85,9 @@
   function update() {
     var b = BOOKS[book.value], price = b.prices[fmt.value], n = Math.max(0, Math.floor(+qty.value || 0));
     if (n < 15) {
-      out.innerHTML = '<p class="calc-small">Bulk pricing starts at 15 copies. For fewer copies, you can <a href="' + b.buy + '">buy on Amazon.ca</a> or see <a href="' + b.page + '">all the places to buy “' + b.title + '”</a>.</p>';
+      out.innerHTML = b.buy
+        ? '<p class="calc-small">Bulk pricing starts at 15 copies. For fewer copies, you can <a href="' + b.buy + '">buy on Amazon.ca</a> or see <a href="' + b.page + '">all the places to buy “' + b.title + '”</a>.</p>'
+        : '<p class="calc-small">Bulk pricing starts at 15 copies. “' + b.title + '” is coming soon. <a href="' + b.page + '">Sign up on its page</a> to hear when it’s out.</p>';
       return;
     }
     var t = tierFor(n), retail = price * n, save = retail * t.off / 100, total = retail - save;

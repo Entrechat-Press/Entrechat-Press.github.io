@@ -59,4 +59,22 @@
       b.replaceWith(f);
     });
   });
+
+  // Build Your Book buttons pop when they come into view, then again every 7 seconds while visible
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    var pop = function (b) { b.classList.remove('popping'); void b.offsetWidth; b.classList.add('popping'); };
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var b = e.target;
+        if (e.isIntersecting) {
+          setTimeout(function () { pop(b); }, 300);
+          b._popTimer = setInterval(function () { pop(b); }, 7000);
+        } else { clearInterval(b._popTimer); }
+      });
+    }, { threshold: 0.8 });
+    document.querySelectorAll('a.btn[href="/contact/"]').forEach(function (b) {
+      b.addEventListener('animationend', function () { b.classList.remove('popping'); });
+      io.observe(b);
+    });
+  }
 })();

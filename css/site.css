@@ -393,6 +393,7 @@ a.btn[href="/contact/"]:hover { transform: translateY(-2px); box-shadow: 0 6px 1
 .calc-big strong { color: var(--red); font-weight: 500; }
 .calc-nudge { margin-top: 10px; padding: 12px 16px; border-left: 3px solid var(--red); background: rgba(219,74,51,.07); font-size: var(--f-small); }
 .calc-small { font-size: var(--f-small); }
+.calc-grid strong.calc-q { font-size: .95rem; }
 .calc-note { font-size: .85rem; color: #666; margin-top: 18px; }
 @media (max-width: 700px) {
   .calc-in { grid-template-columns: 1fr; }

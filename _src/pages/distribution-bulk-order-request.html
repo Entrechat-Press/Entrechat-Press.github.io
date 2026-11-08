@@ -22,7 +22,7 @@ path: /distribution-bulk-order-request/
         </label>
       </div>
       <div class="calc-out" id="c-out" aria-live="polite"></div>
-      <p class="calc-note">All prices are in Canadian dollars (CAD), based on Amazon.ca retail prices rounded to the nearest dollar, before tax. This is an estimate. We'll confirm your final quote by email.</p>
+      <p class="calc-note">All prices are in Canadian dollars (CAD), based on Amazon.ca retail prices rounded to the nearest dollar. Shipping and tax depend on your order and where it's going, so we'll add them when we confirm your final quote by email.</p>
     </div>
     <h2 class="center" style="font-size:var(--f-h4);margin-top:50px">Request your order</h2>
     <div class="formbox zform" data-src="https://forms.entrechatpress.com/entrechatpress/form/BulkOrderRequest/formperma/GSF52KqUCMpVfJBlDOEqni1SvYaLhK-MoU5ZTMtpxOA?zf_rszfm=1" data-h="1333" data-title="Bulk order request"></div>
@@ -39,7 +39,6 @@ path: /distribution-bulk-order-request/
     { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", prices: { Paperback: 30, Hardcover: 49 } }
   ];
   var TIERS = [ { min: 250, off: 25 }, { min: 100, off: 20 }, { min: 50, off: 15 }, { min: 15, off: 10 } ];
-  var SHIPPING = 15;
   var $ = function (id) { return document.getElementById(id); };
   var money = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CAD'; };
   var each = function (n) { return '$' + n + ' CAD'; };
@@ -56,12 +55,12 @@ path: /distribution-bulk-order-request/
       out.innerHTML = '<p class="calc-small">Bulk pricing starts at 15 copies. For fewer copies, you can <a href="' + b.buy + '">buy on Amazon.ca</a> or see <a href="' + b.page + '">all the places to buy “' + b.title + '”</a>.</p>';
       return;
     }
-    var t = tierFor(n), retail = price * n, save = retail * t.off / 100, total = retail - save + SHIPPING;
+    var t = tierFor(n), retail = price * n, save = retail * t.off / 100, total = retail - save;
     var html = '<div class="calc-grid">' +
       '<div><span>Retail price</span><strong>' + money(retail) + '</strong></div>' +
       '<div class="calc-save"><span>Your discount (' + t.off + '%)</span><strong>−' + money(save) + '</strong></div>' +
-      '<div><span>Shipping</span><strong>' + money(SHIPPING) + '</strong></div>' +
-      '<div class="calc-total"><span>Your estimated total</span><strong>' + money(total) + '</strong></div></div>' +
+      '<div><span>Shipping and tax</span><strong class="calc-q">Quoted with your order</strong></div>' +
+      '<div class="calc-total"><span>Your books total</span><strong>' + money(total) + '</strong></div></div>' +
       '<p class="calc-big">You save <strong>' + money(save) + '</strong> on ' + n + ' copies.</p>';
     var next = null; for (var i = TIERS.length - 1; i >= 0; i--) if (TIERS[i].min > n) { next = TIERS[i]; break; }
     if (next && next.min - n <= Math.max(10, n * 0.25)) {

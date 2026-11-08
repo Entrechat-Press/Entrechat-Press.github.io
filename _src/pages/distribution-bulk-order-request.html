@@ -59,7 +59,7 @@ path: /distribution-bulk-order-request/
     var html = '<div class="calc-grid">' +
       '<div><span>Retail price</span><strong>' + money(retail) + '</strong></div>' +
       '<div class="calc-save"><span>Your discount (' + t.off + '%)</span><strong>−' + money(save) + '</strong></div>' +
-      '<div><span>Shipping and tax</span><strong class="calc-q">Quoted with your order</strong></div>' +
+      '<div class="calc-ship"><strong class="calc-q">Shipping and tax quoted with your order</strong></div>' +
       '<div class="calc-total"><span>Your books total</span><strong>' + money(total) + '</strong></div></div>' +
       '<p class="calc-big">You save <strong>' + money(save) + '</strong> on ' + n + ' copies.</p>';
     var next = null; for (var i = TIERS.length - 1; i >= 0; i--) if (TIERS[i].min > n) { next = TIERS[i]; break; }

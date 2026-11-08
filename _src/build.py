@@ -9,7 +9,7 @@ Shortcuts you can use inside page files:
   {{> cta_form }}      -> drop in a partial from _src/partials/cta_form.html
   {{ZOHO_CONTACT}}     -> a form URL from FORMS below
 """
-import os, re, glob, html
+import os, re, glob, html, json
 from datetime import date
 from PIL import Image
 
@@ -26,7 +26,7 @@ FORMS = {
 }
 
 NAV = [('write', '/write/', 'Write.'), ('publish', '/publish/', 'Publish.'), ('market', '/market/', 'Market.'),
-       ('about', '/about/', 'About.'), ('titles', '/our-books/', 'Our Titles.')]
+       ('about', '/about/', 'About.'), ('titles', '/our-books/', 'Our Titles.'), ('resources', '/resources/', 'Resources.')]
 
 IMAGES = {os.path.basename(p): p for p in glob.glob(os.path.join(ROOT, 'images', '*'))}
 _size_cache = {}
@@ -73,21 +73,109 @@ def render(body):
     return body
 
 
-def build_page(path):
+ORG = {
+    "@type": ["Organization", "ProfessionalService"], "@id": SITE_URL + "/#org",
+    "name": "Entrechat Press", "url": SITE_URL + "/",
+    "logo": SITE_URL + "/images/logo.webp", "image": SITE_URL + "/images/logo-share.png",
+    "description": "Toronto hybrid publisher offering ghostwriting, book coaching, editing, publishing and marketing for first-time nonfiction authors.",
+    "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},
+    "areaServed": ["CA", "US"],
+    "knowsAbout": ["Ghostwriting", "Book coaching", "Manuscript editing", "Hybrid publishing", "Book marketing", "Nonfiction"],
+    "founder": {"@id": SITE_URL + "/#adina"},
+    "sameAs": ["https://www.instagram.com/entrechat.press/"],
+}
+PERSON = {
+    "@type": "Person", "@id": SITE_URL + "/#adina", "name": "Adina Samuels",
+    "jobTitle": "Founder and Publisher", "worksFor": {"@id": SITE_URL + "/#org"},
+    "url": SITE_URL + "/about/",
+    "description": "Publishing strategist, author coach and founder of Entrechat Press, with 20+ years of experience helping first-time nonfiction authors turn their expertise into finished books.",
+    "memberOf": [{"@type": "Organization", "name": "Independent Book Publishers Association"},
+                 {"@type": "Organization", "name": "Association of Ghostwriters"}],
+    "sameAs": ["https://www.linkedin.com/in/adinasamuels/", "https://www.instagram.com/adinasamuels/",
+               "https://www.youtube.com/@adinasamuels"],
+}
+
+
+def strip_tags(x):
+    return html.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', x))).strip()
+
+
+def abs_img(v):
+    if v.startswith('@'):
+        v = image_path(v[1:])
+    return SITE_URL + v
+
+
+def schema_for(meta, body, canonical):
+    graph = [ORG, PERSON, {"@type": "WebPage", "@id": canonical, "url": canonical, "name": meta['title'],
+                           "description": meta.get('description', ''), "isPartOf": {"@id": SITE_URL + "/#site"},
+                           "about": {"@id": SITE_URL + "/#org"}}]
+    if meta['path'] == '/':
+        graph.append({"@type": "WebSite", "@id": SITE_URL + "/#site", "url": SITE_URL + "/", "name": "Entrechat Press",
+                      "publisher": {"@id": SITE_URL + "/#org"}})
+    qa = re.findall(r'<details><summary>(.*?)</summary><div class="ans">(.*?)</div></details>', body, re.S)
+    if qa:
+        graph.append({"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": strip_tags(q), "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}}
+            for q, a in qa]})
+    if meta.get('book'):
+        b = {"@type": "Book", "name": meta['book'], "url": canonical,
+             "author": [{"@type": "Person", "name": n.strip()} for n in meta['book_author'].split(';')],
+             "publisher": {"@id": SITE_URL + "/#org"}, "inLanguage": "en"}
+        if meta.get('isbn'):
+            b["isbn"] = meta['isbn']
+        if meta.get('image'):
+            b["image"] = abs_img(meta['image'])
+        graph.append(b)
+    if meta.get('kind') in ('guide', 'blog'):
+        a = {"@type": "Article", "headline": meta['heading'], "description": meta.get('description', ''),
+             "author": {"@id": SITE_URL + "/#adina"}, "publisher": {"@id": SITE_URL + "/#org"},
+             "mainEntityOfPage": canonical}
+        if meta.get('date'):
+            a["datePublished"] = meta['date']
+        graph.append(a)
+    return '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False) + '</script>'
+
+
+def parse(path):
     raw = read(path)
     meta_m = re.match(r'\s*<!--(.*?)-->', raw, re.S)
     meta = dict(re.findall(r'^\s*(\w+):\s*(.*?)\s*$', meta_m.group(1), re.M))
-    body = raw[meta_m.end():]
+    return meta, raw[meta_m.end():]
+
+
+def resources_list(articles):
+    out = []
+    for kind, label in (('guide', 'Guides'), ('blog', 'From the blog')):
+        items = [m for m in articles if m.get('kind') == kind]
+        if not items:
+            continue
+        cards = ''.join(
+            f'<a class="res-card" href="{m["path"]}"><p class="res-kind">{label[:-1] if kind == "guide" else "Blog"}'
+            f'{" &middot; Draft" if m.get("draft") == "yes" else ""}</p><h3>{html.escape(m["heading"])}</h3>'
+            f'<p>{html.escape(m.get("description", ""))}</p><span>Read it &rarr;</span></a>'
+            for m in sorted(items, key=lambda m: m.get('date', ''), reverse=True))
+        out.append(f'<h2 class="res-h">{label}</h2><div class="res-grid">{cards}</div>')
+    return ''.join(out)
+
+
+def build_page(path, articles):
+    meta, body = parse(path)
     url = meta['path']
     nav = ''.join(
         f'<a href="{href}"{" aria-current=\"page\"" if meta.get("nav") == key else ""}>{label}</a>'
         for key, href, label in NAV)
+    body = body.replace('{{resources_list}}', resources_list(articles))
     layout = read(os.path.join(SRC, 'layout.html'))
     canonical = SITE_URL + url
+    head_extra = schema_for(meta, body, canonical) if url != '/404/' else ''
+    if meta.get('draft') == 'yes' or url == '/404/':
+        head_extra += '\n<meta name="robots" content="noindex">'
     out = (layout.replace('{{title}}', html.escape(meta['title']))
                  .replace('{{description}}', html.escape(meta.get('description', '')))
                  .replace('{{canonical}}', canonical)
-                 .replace('{{og_image}}', SITE_URL + meta.get('image', '/images/logo-share.png'))
+                 .replace('{{og_image}}', abs_img(meta['image']) if meta.get('image') else SITE_URL + '/images/logo-share.png')
+                 .replace('{{head_extra}}', head_extra)
                  .replace('{{nav}}', nav)
                  .replace('{{body}}', body))
     out = render(out)
@@ -97,18 +185,21 @@ def build_page(path):
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     with open(dest, 'w', encoding='utf-8') as f:
         f.write(out)
-    return url, canonical
+    return url, canonical, meta
 
 
 def main():
-    urls = [build_page(p) for p in sorted(glob.glob(os.path.join(SRC, 'pages', '*.html')))]
+    pages = sorted(glob.glob(os.path.join(SRC, 'pages', '*.html')))
+    articles = [m for m in (parse(p)[0] for p in pages) if m.get('kind') in ('guide', 'blog')]
+    built = [build_page(p, articles) for p in pages]
     today = date.today().isoformat()
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    sm += [f'  <url><loc>{c}</loc><lastmod>{today}</lastmod></url>' for u, c in urls if u != '/404/']
+    sm += [f'  <url><loc>{c}</loc><lastmod>{today}</lastmod></url>' for u, c, m in built
+           if u != '/404/' and m.get('draft') != 'yes']
     sm.append('</urlset>')
     with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
         f.write('\n'.join(sm) + '\n')
-    print('built', len(urls), 'pages')
+    print('built', len(built), 'pages')
 
 
 if __name__ == '__main__':

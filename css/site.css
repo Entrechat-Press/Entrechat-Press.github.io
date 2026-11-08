@@ -317,3 +317,27 @@ strong { font-weight: 500; }
   .logos .track { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* resources */
+.res-h { margin: 0 0 24px; }
+.res-h:not(:first-child) { margin-top: 60px; }
+.res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+.res-card { display: flex; flex-direction: column; background: var(--cream); padding: 30px 32px 28px; text-decoration: none; border-top: 4px solid var(--red); box-shadow: 1px 2px 3px rgba(0,0,0,.12); transition: transform .15s; }
+.res-card:hover { transform: translateY(-3px); }
+.res-card .res-kind { font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; color: var(--red); margin-bottom: .6em; }
+.res-card h3 { font-size: var(--f-h4); margin-bottom: .5em; }
+.res-card p { font-size: var(--f-small); }
+.res-card span { margin-top: auto; padding-top: 14px; color: var(--red); }
+.article .wrap { max-width: 760px; }
+.article h1 { font-size: var(--f-h2); margin-bottom: .3em; }
+.article h2 { font-size: var(--f-h4); margin: 1.8em 0 .5em; }
+.article .eyebrow a { color: var(--red); text-decoration: none; }
+.article .byline { font-size: var(--f-small); color: #555; margin-bottom: 2em; }
+.article .lead { font-size: var(--f-faq); line-height: 1.4; }
+.faq-light { margin-top: 3em; border-top: 1px solid rgba(0,0,0,.15); }
+.faq-light details { border-bottom: 1px solid rgba(0,0,0,.15); }
+.faq-light summary { list-style: none; cursor: pointer; padding: 18px 40px 18px 0; position: relative; font-size: var(--f-body); }
+.faq-light summary::-webkit-details-marker { display: none; }
+.faq-light summary::after { content: "+"; position: absolute; right: 4px; top: 14px; font-size: 1.5rem; color: var(--red); transition: transform .2s; }
+.faq-light details[open] summary::after { transform: rotate(45deg); }
+.faq-light .ans { padding: 0 0 20px; font-size: var(--f-small); }

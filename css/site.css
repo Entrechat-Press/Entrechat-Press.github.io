@@ -361,3 +361,7 @@ a.btn[href="/contact/"]:hover { transform: translateY(-2px); box-shadow: 0 6px 1
   a.btn[href="/contact/"].popping { animation: none; }
   a.btn[href="/contact/"]:hover { transform: none; }
 }
+
+/* reader reviews gallery */
+.reviews { columns: 3 300px; column-gap: 22px; margin: clamp(30px, 4vw, 50px) 0 30px; }
+.reviews img { width: 100%; break-inside: avoid; margin: 0 0 22px; background: #fff; padding: 14px; box-shadow: 1px 2px 4px rgba(0,0,0,.12); }

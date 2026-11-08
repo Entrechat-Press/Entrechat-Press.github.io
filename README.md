@@ -17,3 +17,7 @@ Styles: `css/site.css`. Scripts (menu, testimonial arrows, Zoho forms, video): `
 ## Forms
 
 All forms are Zoho Forms embeds. Their URLs are listed at the top of `_src/build.py`.
+
+## Domain and forwarding pages
+
+`CNAME` tells GitHub Pages the site lives at www.entrechatpress.com. The folders `home/`, `blog/`, `test/` and `publishing-template/` are hand-written forwarding pages for old Squarespace addresses; the build doesn't touch them.

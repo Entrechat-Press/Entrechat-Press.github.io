@@ -197,7 +197,8 @@ strong { font-weight: 500; }
 .pillars { max-width: 760px; margin: clamp(36px, 5vw, 60px) auto 0; display: grid; gap: 26px; }
 .pillar { display: grid; grid-template-columns: 90px 1fr; align-items: center; padding: 26px 40px; border: 2px solid var(--red); background: rgba(254,251,246,.5); }
 .pillar span { font-size: var(--f-h3); color: var(--red); }
-.pillar h4 { margin: 0; }
+.pillar h4 { margin: 0 0 .25em; }
+.pillar p { margin: 0; }
 .belief { display: grid; grid-template-columns: 34px 1fr; gap: 18px; align-items: stretch; }
 .belief img { width: 34px; height: 100%; object-fit: fill; }
 .belief ul { list-style: none; padding: 0; margin: 0; }
@@ -341,3 +342,9 @@ strong { font-weight: 500; }
 .faq-light summary::after { content: "+"; position: absolute; right: 4px; top: 14px; font-size: 1.5rem; color: var(--red); transition: transform .2s; }
 .faq-light details[open] summary::after { transform: rotate(45deg); }
 .faq-light .ans { padding: 0 0 20px; font-size: var(--f-small); }
+
+/* market offers */
+.offers { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px; margin-top: clamp(36px, 5vw, 56px); }
+.offer { background: var(--red-dark); padding: 26px 28px; box-shadow: 1px 2px 3px rgba(0,0,0,.25); border-top: 3px solid var(--beige); }
+.offer h4 { margin-bottom: .4em; }
+.offer p { font-size: var(--f-small); margin: 0; }

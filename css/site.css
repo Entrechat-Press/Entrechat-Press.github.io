@@ -157,6 +157,7 @@ strong { font-weight: 500; }
 .carousel::-webkit-scrollbar { display: none; }
 .quote { flex: 0 0 calc(50% - 20px); scroll-snap-align: start; background: var(--red); color: var(--cream); padding: 34px 38px 38px; min-height: 360px; display: flex; flex-direction: column; }
 .quote img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; margin-bottom: 18px; }
+.quote .ini { width: 76px; height: 76px; border-radius: 50%; margin-bottom: 18px; background: var(--cream); color: var(--red); display: grid; place-items: center; font-weight: 600; font-size: 1.5rem; letter-spacing: .02em; }
 .quote blockquote { margin: 0 0 18px; font-size: var(--f-faq); line-height: 1.12; letter-spacing: -0.01em; }
 .quote cite { font-style: normal; font-size: .82rem; text-transform: uppercase; font-weight: 500; letter-spacing: .02em; margin-top: auto; }
 .arrows { display: flex; justify-content: center; gap: 14px; margin-top: 28px; }

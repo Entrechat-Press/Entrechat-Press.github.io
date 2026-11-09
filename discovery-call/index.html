@@ -44,7 +44,7 @@
 <script src="https://bookings.nimbuspop.com/assets/embed.js"></script>
 <script>
 window.addEventListener('load', function () {
-  if (window.Bookings) Bookings.inlineEmbed({ url: "https://bookings.entrechatpress.com/portal-embed#/discovery-call?hide_event_details=true", parent: "#inline-container", height: "2500px" });
+  if (window.Bookings) Bookings.inlineEmbed({ url: "https://bookings.entrechatpress.com/portal-embed#/discovery-call?hide_event_details=true", parent: "#inline-container", height: window.innerWidth >= 900 ? "1700px" : "2500px" });
 });
 </script>
 

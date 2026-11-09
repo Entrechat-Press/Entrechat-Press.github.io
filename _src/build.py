@@ -82,7 +82,8 @@ ORG = {
     "areaServed": ["CA", "US"],
     "knowsAbout": ["Ghostwriting", "Book coaching", "Manuscript editing", "Hybrid publishing", "Book marketing", "Nonfiction"],
     "founder": {"@id": SITE_URL + "/#adina"},
-    "sameAs": ["https://www.instagram.com/entrechat.press/"],
+    "sameAs": ["https://www.instagram.com/entrechat.press/", "https://www.linkedin.com/company/entrechatpress",
+               "https://www.facebook.com/p/Entrechat-Press-61572424539519/", "https://fable.co/author/entrechat-press"],
 }
 PERSON = {
     "@type": "Person", "@id": SITE_URL + "/#adina", "name": "Adina Samuels",
@@ -92,7 +93,7 @@ PERSON = {
     "memberOf": [{"@type": "Organization", "name": "Independent Book Publishers Association"},
                  {"@type": "Organization", "name": "Association of Ghostwriters"}],
     "sameAs": ["https://www.linkedin.com/in/adinasamuels/", "https://www.instagram.com/adinasamuels/",
-               "https://www.youtube.com/@adinasamuels"],
+               "https://www.youtube.com/@adinasamuels", "https://www.amazon.ca/e/B0GNNV7N42"],
 }
 
 

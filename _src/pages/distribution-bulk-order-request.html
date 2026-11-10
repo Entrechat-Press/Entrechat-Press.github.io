@@ -30,7 +30,7 @@ path: /distribution-bulk-order-request/
 </section>
 <script>
 (function () {
-  // Retail prices in CAD from Amazon.ca, checked 8 Nov 2026, rounded to the nearest dollar. Thinking On Your Feet and Through Darkness I Saw Light use Books Register prices (rounded) until they're on Amazon. Update here when prices change.
+  // Retail prices in CAD from Amazon.ca, checked 8 Nov 2026, rounded to the nearest dollar. Through Darkness I Saw Light checked 10 Nov 2026. Thinking On Your Feet uses the Books Register price (rounded) until it's on Amazon. Update here when prices change.
   var BOOKS = [
     { title: "write it.", author: "Adina Samuels", page: "/write-it-adina-samuels/", buy: "https://www.amazon.ca/write-Thinking-Actually-Finishing-Nonfiction-ebook/dp/B0GMY2NXSD", prices: { Paperback: 14 } },
     { title: "Thank God I Failed", author: "Orlando Da Silva", page: "/thank-god-i-failed-orlando-dasilva/", buy: "https://www.amazon.ca/Thank-God-Failed-Lawyers-Suicide/dp/1067369953/", prices: { Paperback: 30, Hardcover: 42 } },
@@ -39,7 +39,7 @@ path: /distribution-bulk-order-request/
     { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", prices: { Paperback: 30, Hardcover: 49 } },
     { title: "If I Can, You Can", author: "Damindra Dias", page: "/if-i-can-you-can-damindra-dias/", buy: "https://www.amazon.ca/Can-You-Immigrants-Corporate-Leadership/dp/1067850821/", prices: { Paperback: 25, Hardcover: 42 } },
     { title: "Thinking On Your Feet", author: "Chris Graham", page: "/thinking-on-your-feet-chris-graham/", buy: null, soon: true, prices: { Paperback: 24 } },
-    { title: "Through Darkness I Saw Light", author: "Rebecca Azuelos", page: "/through-darkness-i-saw-light-rebecca-azuelos/", buy: null, soon: true, prices: { Paperback: 22 } }
+    { title: "Through Darkness I Saw Light", author: "Rebecca Azuelos", page: "/through-darkness-i-saw-light-rebecca-azuelos/", buy: "https://www.amazon.ca/Through-Darkness-Saw-Light-Ouanounou/dp/1067850872/", prices: { Paperback: 22, Hardcover: 40 } }
   ];
   var TIERS = [ { min: 250, off: 25 }, { min: 100, off: 20 }, { min: 50, off: 15 }, { min: 15, off: 10 } ];
   var $ = function (id) { return document.getElementById(id); };

@@ -22,6 +22,7 @@ FORMS = {
     'ZOHO_CONTACT': 'https://forms.zohopublic.ca/entrechatpress/form/ContactForm/formperma/0L37fYyvEovIcRBupDbE4N1VhOjsljSEEPGMlkDl-qM?zf_rszfm=1',
     'ZOHO_DAMINDRA': 'https://forms.zohopublic.ca/entrechatpress/form/IfICanYouCanBookPreLaunchForm/formperma/5WjqIlVqPotEoVpqASzZkbMKfSJ71rsSXm358_Lzq-o?zf_rszfm=1',
     'ZOHO_CHRIS': 'https://forms.zohopublic.ca/entrechatpress/form/ChrisGrahamBookPreLaunchForm/formperma/J0n4PRxMWOysOqjBnkvy9XtVcVpK8DITi757I5t_XfY?zf_rszfm=1',
+    'ZOHO_FREEBIE': 'https://forms.zohopublic.ca/entrechatpress/form/EPFreebieFormPopup/formperma/6q5B4PyINRSGcmrlQ4-BSdwcNxZWFTjTEgxd5BoWqVs?zf_rszfm=1',
     'ZOHO_REBECCA': 'https://forms.zohopublic.ca/entrechatpress/form/RebeccaAzuelosBookPreLaunchForm/formperma/mntLsI-E_ZVJpjA3JBVNRsRyd1OSCWmKFXDnQopXraM?zf_rszfm=1',
 }
 

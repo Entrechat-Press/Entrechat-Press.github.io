@@ -9,7 +9,7 @@ path: /distribution-bulk-order-request/
     <p class="center mid">Ordering copies for an event, classroom, retail shelf, or gift? We'd love to help.</p>
     <div class="calc" id="bulk-calc">
       <h2>See what you'll save</h2>
-      <p class="calc-cad">Prices are in Canadian dollars (CAD). Ordering from the US? Pick the USD listing where there is one.</p>
+      <p class="calc-cad">Books are listed in Canadian dollars (CAD) and, where available, US dollars (USD). Pick the one you'll pay in.</p>
       <div class="calc-in">
         <label>Book
           <select id="c-book"></select>
@@ -31,16 +31,23 @@ path: /distribution-bulk-order-request/
 <script>
 (function () {
   // Retail prices in CAD from Amazon.ca, checked 8 Nov 2026, rounded to the nearest dollar. Through Darkness I Saw Light checked 10 Nov 2026. Thinking On Your Feet uses the Books Register price (rounded) until it's on Amazon. Update here when prices change. USD listings (cur: "USD") use the US list price from the Books Register.
+  // USD prices from the EP | Books Register (US list price), rounded to the nearest dollar, checked 13 Nov 2026. write it. isn't in the register yet, so it's CAD only.
   var BOOKS = [
-    { title: "write it.", author: "Adina Samuels", page: "/write-it-adina-samuels/", buy: "https://www.amazon.ca/write-Thinking-Actually-Finishing-Nonfiction-ebook/dp/B0GMY2NXSD", prices: { Paperback: 14 } },
-    { title: "Thank God I Failed", author: "Orlando Da Silva", page: "/thank-god-i-failed-orlando-dasilva/", buy: "https://www.amazon.ca/Thank-God-Failed-Lawyers-Suicide/dp/1067369953/", prices: { Paperback: 30, Hardcover: 42 } },
-    { title: "White Men, I Need You!", author: "Sema Burney", page: "/white-men-i-need-you-sema-burney/", buy: "https://www.amazon.ca/White-Men-Need-You-no-nonsense/dp/1067369929/", prices: { Paperback: 25 } },
-    { title: "The $50M Consulting Firm", author: "Mark Orttung & Doug Taylor", page: "/the-50m-consulting-firm-mark-orttung-doug-taylor/", buy: "https://www.amazon.ca/50M-Consulting-Firm-Playbook-Scaling/dp/1067369961/", prices: { Paperback: 22 } },
-    { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", prices: { Paperback: 30, Hardcover: 49 } },
-    { title: "If I Can, You Can", author: "Damindra Dias", page: "/if-i-can-you-can-damindra-dias/", buy: "https://www.amazon.ca/Can-You-Immigrants-Corporate-Leadership/dp/1067850821/", prices: { Paperback: 25, Hardcover: 42 } },
+    { title: "write it.", author: "Adina Samuels", page: "/write-it-adina-samuels/", buy: "https://www.amazon.ca/write-Thinking-Actually-Finishing-Nonfiction-ebook/dp/B0GMY2NXSD", cur: "CAD", prices: { Paperback: 14 } },
+    { title: "Thank God I Failed", author: "Orlando Da Silva", page: "/thank-god-i-failed-orlando-dasilva/", buy: "https://www.amazon.ca/Thank-God-Failed-Lawyers-Suicide/dp/1067369953/", cur: "CAD", prices: { Paperback: 30, Hardcover: 42 } },
+    { title: "Thank God I Failed", author: "Orlando Da Silva", page: "/thank-god-i-failed-orlando-dasilva/", buy: "https://www.amazon.ca/Thank-God-Failed-Lawyers-Suicide/dp/1067369953/", cur: "USD", prices: { Paperback: 22, Hardcover: 30 } },
+    { title: "White Men, I Need You!", author: "Sema Burney", page: "/white-men-i-need-you-sema-burney/", buy: "https://www.amazon.ca/White-Men-Need-You-no-nonsense/dp/1067369929/", cur: "CAD", prices: { Paperback: 25 } },
+    { title: "White Men, I Need You!", author: "Sema Burney", page: "/white-men-i-need-you-sema-burney/", buy: "https://www.amazon.ca/White-Men-Need-You-no-nonsense/dp/1067369929/", cur: "USD", prices: { Paperback: 19 } },
+    { title: "The $50M Consulting Firm", author: "Mark Orttung & Doug Taylor", page: "/the-50m-consulting-firm-mark-orttung-doug-taylor/", buy: "https://www.amazon.ca/50M-Consulting-Firm-Playbook-Scaling/dp/1067369961/", cur: "CAD", prices: { Paperback: 22 } },
+    { title: "The $50M Consulting Firm", author: "Mark Orttung & Doug Taylor", page: "/the-50m-consulting-firm-mark-orttung-doug-taylor/", buy: "https://www.amazon.ca/50M-Consulting-Firm-Playbook-Scaling/dp/1067369961/", cur: "USD", prices: { Paperback: 15 } },
+    { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", cur: "CAD", prices: { Paperback: 30, Hardcover: 49 } },
+    { title: "Seeds of Subversion", author: "Noa Tal", page: "/seeds-of-subversion-noa-tal/", buy: "https://www.amazon.ca/dp/1067850805", cur: "USD", prices: { Paperback: 22, Hardcover: 35 } },
+    { title: "If I Can, You Can", author: "Damindra Dias", page: "/if-i-can-you-can-damindra-dias/", buy: "https://www.amazon.ca/Can-You-Immigrants-Corporate-Leadership/dp/1067850821/", cur: "CAD", prices: { Paperback: 25, Hardcover: 42 } },
+    { title: "If I Can, You Can", author: "Damindra Dias", page: "/if-i-can-you-can-damindra-dias/", buy: "https://www.amazon.ca/Can-You-Immigrants-Corporate-Leadership/dp/1067850821/", cur: "USD", prices: { Paperback: 22 } },
     { title: "Thinking On Your Feet", author: "Chris Graham", page: "/thinking-on-your-feet-chris-graham/", buy: null, soon: true, cur: "CAD", prices: { Paperback: 24 } },
     { title: "Thinking On Your Feet", author: "Chris Graham", page: "/thinking-on-your-feet-chris-graham/", buy: null, soon: true, cur: "USD", prices: { Paperback: 20 } },
-    { title: "Through Darkness I Saw Light", author: "Rebecca Azuelos", page: "/through-darkness-i-saw-light-rebecca-azuelos/", buy: "https://www.amazon.ca/Through-Darkness-Saw-Light-Ouanounou/dp/1067850872/", prices: { Paperback: 22, Hardcover: 40 } }
+    { title: "Through Darkness I Saw Light", author: "Rebecca Azuelos", page: "/through-darkness-i-saw-light-rebecca-azuelos/", buy: "https://www.amazon.ca/Through-Darkness-Saw-Light-Ouanounou/dp/1067850872/", cur: "CAD", prices: { Paperback: 22, Hardcover: 40 } },
+    { title: "Through Darkness I Saw Light", author: "Rebecca Azuelos", page: "/through-darkness-i-saw-light-rebecca-azuelos/", buy: "https://www.amazon.ca/Through-Darkness-Saw-Light-Ouanounou/dp/1067850872/", cur: "USD", prices: { Paperback: 20, Hardcover: 25 } }
   ];
   var TIERS = [ { min: 250, off: 25 }, { min: 100, off: 20 }, { min: 50, off: 15 }, { min: 15, off: 10 } ];
   var $ = function (id) { return document.getElementById(id); };

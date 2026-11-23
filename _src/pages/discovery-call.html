@@ -14,27 +14,37 @@ path: /discovery-call/
 <script>
 window.addEventListener('load', function () {
   var box = document.getElementById('inline-container');
-  // Fallback heights, tall enough for the whole booking flow so the calendar never needs its own scrollbar.
-  var fallback = function () { return window.innerWidth >= 900 ? 2000 : 3000; };
-  if (window.Bookings) Bookings.inlineEmbed({ url: "https://bookings.entrechatpress.com/portal-embed#/discovery-call?hide_event_details=true", parent: "#inline-container", height: fallback() + "px" });
-  var fit = function (f) {
-    f.setAttribute('scrolling', 'no');
-    f.style.width = '100%';
-    f.style.border = '0';
-    f.style.overflow = 'hidden';
-    f.style.display = 'block';
-  };
+  var MIN_W = 420; // narrowest width the booking form lays out cleanly at (two-column name fields)
+  var height = window.innerWidth >= 900 ? 2000 : 3000; // tall enough that the calendar never needs its own scrollbar
+  if (window.Bookings) Bookings.inlineEmbed({ url: "https://bookings.entrechatpress.com/portal-embed#/discovery-call?hide_event_details=true", parent: "#inline-container", height: height + "px" });
   var frame = function () { return box.querySelector('iframe'); };
-  if (frame()) fit(frame());
-  new MutationObserver(function () { if (frame()) fit(frame()); }).observe(box, { childList: true, subtree: true });
+  // On narrow screens, draw the booking page at MIN_W and scale it down to fit, so nothing scrolls sideways.
+  var layout = function () {
+    var f = frame(); if (!f) return;
+    f.setAttribute('scrolling', 'no');
+    f.style.border = '0'; f.style.overflow = 'hidden'; f.style.display = 'block'; f.style.maxWidth = 'none';
+    f.style.height = height + 'px';
+    var w = box.clientWidth;
+    if (w && w < MIN_W) {
+      var k = w / MIN_W;
+      f.style.width = MIN_W + 'px';
+      f.style.transform = 'scale(' + k + ')';
+      f.style.transformOrigin = '0 0';
+      box.style.height = Math.ceil(height * k) + 'px';
+    } else {
+      f.style.width = '100%'; f.style.transform = ''; box.style.height = '';
+    }
+  };
+  layout();
+  new MutationObserver(function () { if (frame() && !frame().dataset.fit) { frame().dataset.fit = 1; layout(); } }).observe(box, { childList: true, subtree: true });
+  window.addEventListener('resize', layout);
   // If the booking page reports its height, size the calendar to match it exactly.
   window.addEventListener('message', function (e) {
     if (!/entrechatpress\.com|nimbuspop\.com|zoho/.test(e.origin)) return;
     var d = e.data, h = 0;
     if (typeof d === 'string') { try { d = JSON.parse(d); } catch (x) { var m = String(d).match(/(?:height|\|)\D{0,3}(\d{3,5})/i); if (m) h = +m[1]; } }
     if (d && typeof d === 'object') h = +(d.height || d.frameHeight || (d.data && d.data.height) || 0);
-    var f = frame();
-    if (f && h > 300) f.style.height = (h + 30) + 'px';
+    if (h > 300) { height = h + 30; layout(); }
   });
 });
 </script>

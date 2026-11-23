@@ -9,7 +9,7 @@ Shortcuts you can use inside page files:
   {{> cta_form }}      -> drop in a partial from _src/partials/cta_form.html
   {{ZOHO_CONTACT}}     -> a form URL from FORMS below
 """
-import os, re, glob, html, json
+import os, re, glob, html, json, hashlib, subprocess
 from datetime import date
 from PIL import Image
 
@@ -187,16 +187,59 @@ def build_page(path, articles):
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     with open(dest, 'w', encoding='utf-8') as f:
         f.write(out)
+    # Fingerprint of the page's own content (not the shared header/footer), used for sitemap dates.
+    meta['_hash'] = hashlib.sha1((meta['title'] + meta.get('description', '') + render(body)).encode()).hexdigest()
+    meta['_src'] = path
     return url, canonical, meta
+
+
+LASTMOD_FILE = os.path.join(SRC, 'lastmod.json')
+
+
+def git_date(path):
+    try:
+        d = subprocess.run(['git', 'log', '-1', '--format=%cs', '--', path], cwd=ROOT,
+                           capture_output=True, text=True).stdout.strip()
+    except OSError:
+        d = ''
+    return d or date.today().isoformat()
+
+
+def lastmod_dates(built):
+    """Each page's sitemap date is the day its content last changed.
+
+    _src/lastmod.json remembers a fingerprint and date per page. If the fingerprint
+    differs on a build, the date becomes today. Pages new to the file start from the
+    date their source file was last committed."""
+    try:
+        with open(LASTMOD_FILE) as f:
+            old = json.load(f)
+    except (OSError, ValueError):
+        old = {}
+    today = date.today().isoformat()
+    new = {}
+    for url, _, meta in built:
+        prev = old.get(url)
+        if prev is None:
+            d = git_date(meta['_src'])
+        elif prev['hash'] != meta['_hash']:
+            d = today
+        else:
+            d = prev['date']
+        new[url] = {'hash': meta['_hash'], 'date': d}
+    with open(LASTMOD_FILE, 'w') as f:
+        json.dump(new, f, indent=1, sort_keys=True)
+        f.write('\n')
+    return {u: v['date'] for u, v in new.items()}
 
 
 def main():
     pages = sorted(glob.glob(os.path.join(SRC, 'pages', '*.html')))
     articles = [m for m in (parse(p)[0] for p in pages) if m.get('kind') in ('guide', 'blog')]
     built = [build_page(p, articles) for p in pages]
-    today = date.today().isoformat()
+    dates = lastmod_dates(built)
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    sm += [f'  <url><loc>{c}</loc><lastmod>{today}</lastmod></url>' for u, c, m in built
+    sm += [f'  <url><loc>{c}</loc><lastmod>{dates[u]}</lastmod></url>' for u, c, m in built
            if u != '/404/' and m.get('draft') != 'yes' and m.get('noindex') != 'yes']
     sm.append('</urlset>')
     with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:

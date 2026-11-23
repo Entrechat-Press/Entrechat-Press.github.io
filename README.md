@@ -10,7 +10,7 @@ After changing anything in `_src/`, rebuild:
 
     python3 _src/build.py
 
-That regenerates every page's `index.html` and `sitemap.xml`. Commit both the source and the built files.
+That regenerates every page's `index.html` and `sitemap.xml`. Commit both the source and the built files, including `_src/lastmod.json`, which tracks the date each page's content last changed for the sitemap.
 
 Styles: `css/site.css`. Scripts (menu, testimonial arrows, Zoho forms, video): `js/site.js`. Images: `images/`.
 

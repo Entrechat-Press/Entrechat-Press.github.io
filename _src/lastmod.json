@@ -1,15 +1,15 @@
 {
  "/": {
-  "date": "2026-11-10",
-  "hash": "4e13e0df2e81d6a02f2bacfd50a90cfd367497b6"
+  "date": "2026-11-23",
+  "hash": "16540bcbca784f32e70fa6e3a7de161e5824ce9e"
  },
  "/404/": {
   "date": "2026-10-21",
   "hash": "45d93c4a726fc4d568facaddffe89789dc7788d7"
  },
  "/about/": {
-  "date": "2026-11-10",
-  "hash": "b9406127fad3edf1b40c59d9d374b819a0e23a98"
+  "date": "2026-11-23",
+  "hash": "0e194ed605861ad639b528c1df9afba2f89dcb0f"
  },
  "/all-links/": {
   "date": "2026-11-20",
@@ -17,7 +17,7 @@
  },
  "/book-blueprint-guide/": {
   "date": "2026-11-23",
-  "hash": "5371af29498240e46499ab92a7f794825608a3a5"
+  "hash": "0382f3510cb3514167246864e1399636538f9008"
  },
  "/book-blueprint-thank-you/": {
   "date": "2026-11-10",
@@ -28,8 +28,8 @@
   "hash": "6f40df8ea5e18e2a383143e56dfb0b06f89d11ba"
  },
  "/contact/": {
-  "date": "2026-11-10",
-  "hash": "893e45d01be1ec94b6078988b2054309ac5fc235"
+  "date": "2026-11-23",
+  "hash": "a586b3229d14cbb621fc6603b7c81b3e1bbd1728"
  },
  "/discovery-call/": {
   "date": "2026-11-10",
@@ -40,12 +40,12 @@
   "hash": "831000ebee07de324097dc4ecd6f3de8c65f10c5"
  },
  "/if-i-can-you-can-damindra-dias/": {
-  "date": "2026-11-08",
-  "hash": "d7cb66840777305e050caa50a498b6cf48a35dab"
+  "date": "2026-11-23",
+  "hash": "dbad0507db7ad964be67604aef429b72fa9ab023"
  },
  "/market/": {
-  "date": "2026-11-10",
-  "hash": "1bdf558ff2aacfec1aea852fc6692e728bb71c24"
+  "date": "2026-11-23",
+  "hash": "cec9a478e679744549740539ed3dd0da0fbc965a"
  },
  "/onboarding/": {
   "date": "2026-11-23",
@@ -56,8 +56,8 @@
   "hash": "9f21c97933c18d2ba6bd1284a78ea67255287c7c"
  },
  "/publish/": {
-  "date": "2026-11-10",
-  "hash": "740c412196397f1673a92d4b5a095452fd409961"
+  "date": "2026-11-23",
+  "hash": "e8659878885f3fee5ff65122ff88e61c063bd95b"
  },
  "/publishing-onboarding/": {
   "date": "2026-11-23",
@@ -68,12 +68,12 @@
   "hash": "a1e7d692d72ec1192163a7de6e7398b338446801"
  },
  "/resources/ghostwriting-vs-book-coaching/": {
-  "date": "2026-11-09",
-  "hash": "cdece5e43e9d0d93590da7ee5d37d2db42043e4c"
+  "date": "2026-11-23",
+  "hash": "0925a704deb45c37d3fe871d1747c57b4147a846"
  },
  "/seeds-of-subversion-noa-tal/": {
-  "date": "2026-11-08",
-  "hash": "5f732be03d5ea0364916fb7cdd09b740922a6f48"
+  "date": "2026-11-23",
+  "hash": "299a7b7cc07827dbf7bd3880697cd390df070a81"
  },
  "/testimonial/": {
   "date": "2026-11-08",
@@ -84,8 +84,8 @@
   "hash": "8117e49ded68aa39aa472959f64e4709ac411bf9"
  },
  "/the-50m-consulting-firm-mark-orttung-doug-taylor/": {
-  "date": "2026-11-08",
-  "hash": "becc0a8a1a46b1329869864f5bfbbf6ae33fe38c"
+  "date": "2026-11-23",
+  "hash": "71aec981e7b6f0eb86d0bf19dc656d6734fcba30"
  },
  "/thinking-on-your-feet-chris-graham/": {
   "date": "2026-11-17",
@@ -100,11 +100,11 @@
   "hash": "9280c5d77a39faec54e8852cf37a01d6af595451"
  },
  "/write-it-adina-samuels/": {
-  "date": "2026-11-08",
-  "hash": "c568f10371e44a7f39abd91b95ee7c3b5815f22a"
+  "date": "2026-11-23",
+  "hash": "43dc6aaacfa7a57fc098a8cf1554f62a8340b630"
  },
  "/write/": {
-  "date": "2026-11-20",
-  "hash": "9d059a03cab54c06ab96e151db2c884684bf9582"
+  "date": "2026-11-23",
+  "hash": "83fce3c4e94c3e22302554cd6f5105d24cdc749c"
  }
 }

@@ -270,6 +270,7 @@ strong { font-weight: 500; }
 
 /* contact page */
 .contact .wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(32px, 6vw, 90px); align-items: start; }
+.contact h1 { font-size: var(--f-h2); }
 .contact .mark { width: 72px; margin-bottom: 14px; }
 
 /* footer */

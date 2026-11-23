@@ -83,7 +83,8 @@ ORG = {
     "areaServed": ["CA", "US"],
     "knowsAbout": ["Ghostwriting", "Book coaching", "Manuscript editing", "Hybrid publishing", "Book marketing", "Nonfiction"],
     "founder": {"@id": SITE_URL + "/#adina"},
-    "sameAs": ["https://www.instagram.com/entrechat.press/", "https://www.linkedin.com/company/entrechatpress",
+    "sameAs": ["https://www.instagram.com/entrechat.press/", "https://www.linkedin.com/company/106024954/",
+               "https://www.youtube.com/@entrechatpress1",
                "https://www.facebook.com/p/Entrechat-Press-61572424539519/", "https://fable.co/author/entrechat-press"],
 }
 PERSON = {

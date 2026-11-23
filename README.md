@@ -20,4 +20,4 @@ All forms are Zoho Forms embeds. Their URLs are listed at the top of `_src/build
 
 ## Domain and forwarding pages
 
-`CNAME` tells GitHub Pages the site lives at www.entrechatpress.com. The folders `home/`, `blog/`, `test/` and `publishing-template/` are hand-written forwarding pages for old Squarespace addresses; the build doesn't touch them.
+`CNAME` tells GitHub Pages the site lives at www.entrechatpress.com. The folders `home/`, `blog/`, `test/`, `publishing-template/` and `onboarding-1/` are hand-written forwarding pages for old addresses (`onboarding-1/` goes to `/onboarding/`); the build doesn't touch them.

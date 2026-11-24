@@ -15,6 +15,10 @@
   "date": "2026-11-20",
   "hash": "ab5e54ca6abdc501eb5c5c76078f8233a44acdf1"
  },
+ "/assisted-self-publishing/": {
+  "date": "2026-11-24",
+  "hash": "b029ce704f365098b8815b2d8b0a86a9a6c81eca"
+ },
  "/book-blueprint-guide/": {
   "date": "2026-11-23",
   "hash": "0382f3510cb3514167246864e1399636538f9008"
@@ -38,6 +42,10 @@
  "/distribution-bulk-order-request/": {
   "date": "2026-11-23",
   "hash": "831000ebee07de324097dc4ecd6f3de8c65f10c5"
+ },
+ "/hybrid-publishing/": {
+  "date": "2026-11-24",
+  "hash": "d477147db5021cf9d338ddaa98769254e25625b9"
  },
  "/if-i-can-you-can-damindra-dias/": {
   "date": "2026-11-23",

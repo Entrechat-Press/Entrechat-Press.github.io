@@ -78,3 +78,14 @@
     });
   }
 })();
+
+// Announcement bar: close button remembers the choice for this visitor.
+(function () {
+  var bar = document.getElementById('announce');
+  if (!bar) return;
+  bar.querySelector('.x').addEventListener('click', function () {
+    try { localStorage.setItem('announce-closed', bar.dataset.id); } catch (e) {}
+    bar.remove();
+    document.documentElement.classList.remove('has-announce');
+  });
+})();

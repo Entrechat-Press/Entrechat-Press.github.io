@@ -179,6 +179,7 @@ def build_page(path, articles):
                  .replace('{{canonical}}', canonical)
                  .replace('{{og_image}}', abs_img(meta['image']) if meta.get('image') else SITE_URL + '/images/logo-share.png')
                  .replace('{{head_extra}}', head_extra)
+                 .replace('{{announce}}', ANNOUNCE if meta.get('announce') == 'yes' else '')
                  .replace('{{nav}}', nav)
                  .replace('{{body}}', body))
     out = render(out)
@@ -192,6 +193,20 @@ def build_page(path, articles):
     meta['_hash'] = hashlib.sha1((meta['title'] + meta.get('description', '') + render(body)).encode()).hexdigest()
     meta['_src'] = path
     return url, canonical, meta
+
+
+# Announcement bar, shown on pages whose header has `announce: yes`.
+# Change ANNOUNCE_ID whenever the message changes, so visitors who closed the old one see the new one.
+ANNOUNCE_ID = 'blueprint-1'
+ANNOUNCE = (
+    '<div class="announce" id="announce" data-id="' + ANNOUNCE_ID + '">'
+    '<a href="/book-blueprint-guide/"><span class="long">Got a book in you? Map it out with our free Book Blueprint guide</span>'
+    '<span class="short">Free guide: map out your book</span> &rarr;</a>'
+    '<button class="x" aria-label="Close announcement">&times;</button></div>'
+    '<script>try{if(localStorage.getItem("announce-closed")==="' + ANNOUNCE_ID + '")'
+    'document.getElementById("announce").remove();else document.documentElement.classList.add("has-announce")}'
+    'catch(e){document.documentElement.classList.add("has-announce")}</script>\n'
+)
 
 
 LASTMOD_FILE = os.path.join(SRC, 'lastmod.json')

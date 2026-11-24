@@ -21,3 +21,7 @@ All forms are Zoho Forms embeds. Their URLs are listed at the top of `_src/build
 ## Domain and forwarding pages
 
 `CNAME` tells GitHub Pages the site lives at www.entrechatpress.com. The folders `home/`, `blog/`, `test/`, `publishing-template/` and `onboarding-1/` are hand-written forwarding pages for old addresses (`onboarding-1/` goes to `/onboarding/`); the build doesn't touch them.
+
+## Announcement bar
+
+A red bar at the top of the header promotes the free Book Blueprint guide. It shows on pages whose header comment has `announce: yes` (currently the homepage, Write, Publish and Market). The message lives in `ANNOUNCE` in `_src/build.py`; when you change it, also change `ANNOUNCE_ID` so visitors who closed the old message see the new one.

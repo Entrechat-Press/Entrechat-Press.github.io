@@ -201,7 +201,7 @@ ANNOUNCE_ID = 'blueprint-1'
 ANNOUNCE = (
     '<div class="announce" id="announce" data-id="' + ANNOUNCE_ID + '">'
     '<a href="/book-blueprint-guide/"><span class="long">Got a book in you? Map it out with our free Book Blueprint guide</span>'
-    '<span class="short">Free guide: map out your book</span> &rarr;</a>'
+    '<span class="short">Got a book in you? Start free</span> &rarr;</a>'
     '<button class="x" aria-label="Close announcement">&times;</button></div>'
     '<script>try{if(localStorage.getItem("announce-closed")==="' + ANNOUNCE_ID + '")'
     'document.getElementById("announce").remove();else document.documentElement.classList.add("has-announce")}'

@@ -24,4 +24,4 @@ All forms are Zoho Forms embeds. Their URLs are listed at the top of `_src/build
 
 ## Announcement bar
 
-A red bar at the top of the header promotes the free Book Blueprint guide. It shows on pages whose header comment has `announce: yes` (currently the homepage, Write, Publish and Market). The message lives in `ANNOUNCE` in `_src/build.py`; when you change it, also change `ANNOUNCE_ID` so visitors who closed the old message see the new one.
+A red bar at the top of the header promotes the free Book Blueprint guide. It shows on pages whose header comment has `announce: yes` (currently Home, Write, Publish, Market, About, Our Titles, Resources and the Ghostwriting vs. Book Coaching article). The message lives in `ANNOUNCE` in `_src/build.py`; when you change it, also change `ANNOUNCE_ID` so visitors who closed the old message see the new one.
